@@ -3,40 +3,39 @@ import { Response } from 'express';
 import { Estudiante } from 'src/models/estudiante';
 import { dataEmpresas, dataEstudiantes, dataOfertaLaboral, dataPostulacion } from 'src/models/data';
 import { randomUUID } from 'crypto';
+import { EstudiantesService } from './estudiantes.service';
+import { Resultado } from './utils';
 
 @Controller('estudiantes')
 export class EstudiantesController {
 
+    constructor( private readonly estudianteService: EstudiantesService){}
+
     @Post()
     crearEstudiante(@Body() estudiante:Estudiante, @Res() res:Response){
-        if (dataEstudiantes.find(dato => dato.email == estudiante.email)) return res.status(404).json( { massage: 'estudiante ya esta registrado'});
-        if(!estudiante) return res.status(404).json( { massage: 'no cumple con los requisitos para crear el estudiante'});
-        estudiante = {
-            ...estudiante,
-            id: randomUUID(),
-        }
-        dataEstudiantes.push(estudiante);
-        return res.status(201).json({ massage: 'estudiante creado' });
+        const respuesta :Resultado = this.estudianteService.crearEstudiante(estudiante);
+        if (respuesta.status) return res.status(201).json(respuesta.massage);
+        return res.status(404).json(respuesta.massage);
     }
 
     @Get(':id')
-    obtenerEstudiante(@Param('id') id: string, @Res() res:Response){
-        const estudianteSolicitado = dataEstudiantes.find(dato => dato.id == id);
+    obtenerEstudianteById(@Param('id') id: string, @Res() res:Response){
+        const estudianteSolicitado: Estudiante = this.estudianteService.obtenerEstudianteByID(id);
         if(estudianteSolicitado) return res.json(estudianteSolicitado);
         return res.status(404).json({ massage: 'no existe estudiante con esa id' });
     }
 
     @Get()
     obtenerListaEstudiantes(@Res() res:Response){
-        if(dataEstudiantes) return res.json(dataEstudiantes);
+        const estudiantes: Estudiante[] = this.estudianteService.obtenerListaEstudiantes();
+        if(estudiantes.length > 0) return res.json(estudiantes);
         return res.status(404).json({ massage: 'no existen estudiantes' });
     }
 
     @Delete(':id')
     eliminarEstudiante(@Param('id') id: string, @Res() res:Response){
-        const estudianteIndex = dataEstudiantes.findIndex(data => data.id == id);
-        if (estudianteIndex === -1) return res.status(404).json({ massage: 'estudiante not found' });
-        dataEstudiantes.splice(estudianteIndex, 1);
+        const resultado: boolean = this.estudianteService.eliminarEstudiante(id);
+        if (!resultado) return res.status(404).json({ massage: 'estudiante not found' });
         return res.json({ massage: 'estudiante deleted' });
     }
 }
