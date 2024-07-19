@@ -1,10 +1,10 @@
-class Empresa {
-    id: number;
+export class Empresa {
+    id: string;
     nombre: string;
     sitioWeb: string;
     tipo: string;
     constructor (
-        id: number,
+        id: string,
         nombre: string,
         sitioWeb: string,
         tipo: string,

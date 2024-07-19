@@ -2,8 +2,8 @@ import { Empresa } from "./empresa";
 import { Postulacion } from "./postulacion";
 
 export class OfertaLaboral {
-    id: number;
-    fechaCreacion: string;
+    id: string;
+    fechaCreacion: Date;
     descripcion: string;
     cargo: string;
     region: string;
@@ -12,8 +12,8 @@ export class OfertaLaboral {
     empresa: Empresa;
     postulaciones: Postulacion[];
     constructor (
-        id: number,
-        fechaCreacion: string,
+        id: string,
+        fechaCreacion: Date,
         descripcion: string,
         cargo: string,
         region: string,

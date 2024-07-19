@@ -1,12 +1,12 @@
-class Estudiante {
-    id: number;
+export class Estudiante {
+    id: string;
     nombre: string;
     apellidos: string;
     edad: number;
     profesion: string;
     email: string;
     constructor(
-        id: number,
+        id: string,
         nombre: string,
         apellidos: string,
         edad: number,

@@ -1,0 +1,21 @@
+### obtener todos los estudiantes 
+GET http://localhost:3000/estudiantes
+
+### obtener todos los estudiantes por id
+GET http://localhost:3000/estudiantes/3b1f5267-18c0-43a2-a807-c2bc7a939bab
+
+### eliminar estudiantes
+DELETE  http://localhost:3000/estudiantes/723bcba5-6815-404c-985e-800376fa4956
+
+### crear todos los estudiantes 
+GET http://localhost:3000/estudiantes
+Content-Type: application/json
+
+{
+    "id": "4d1aefc0-65d7-45e6-8dc9-8b8d2bb8b432",
+    "nombre": "Laura",
+    "apellidos": "Rodríguez",
+    "edad": 24,
+    "profesion": "Psicóloga",
+    "email": "laura.rodriguez@example.com"
+}

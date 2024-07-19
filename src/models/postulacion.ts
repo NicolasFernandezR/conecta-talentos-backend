@@ -1,13 +1,13 @@
 import { Estudiante } from "./estudiante";
 
 export class Postulacion{
-    id: number;
-    fechaPostulacion: string;
+    id: string;
+    fechaPostulacion: Date;
     estudiante: Estudiante;
     estado: string;
     constructor(
-        id: number,
-        fechaPostulacion: string,
+        id: string,
+        fechaPostulacion: Date,
         estudiante: Estudiante,
         estado: string,
     ){
